@@ -202,7 +202,7 @@ formalsList     ::= formalDecl:fd
                    RESULT = fdn; 
                 :}
                 | formalDecl:fd COMMA formalsList:fl
-                {: fl.addLast(fd);
+                {: fl.addFirst(fd);
                    RESULT = fl;
                 :}
                 ;
@@ -244,10 +244,10 @@ stmt            ::= assignExp:ae SEMICOLON
                 | IF LPAREN exp:e RPAREN LCURLY varDeclList:vdl stmtList:sl RCURLY
                 {: RESULT = new IfStmtNode(e, new DeclListNode(vdl), new StmtListNode(sl));
                 :}
-                | IF LPAREN exp:e RPAREN LCURLY varDeclList:vdl1
-                stmtList:sl RCURLY ELSE LCURLY varDeclList:vdl2 stmtList:sl RCURLY
-                {: RESULT = new IfElseStmtNode(e, new DeclListNode(vdl1),
-                        new StmtListNode(sl), new DeclListNode(vdl2), new StmtListNode(sl));
+                | IF LPAREN exp:e RPAREN LCURLY varDeclList:vdli
+                stmtList:sli RCURLY ELSE LCURLY varDeclList:vdle stmtList:sle RCURLY
+                {: RESULT = new IfElseStmtNode(e, new DeclListNode(vdli),
+                        new StmtListNode(sli), new DeclListNode(vdle), new StmtListNode(sle));
                 :}
                 | WHILE LPAREN exp:e RPAREN LCURLY varDeclList:vdl stmtList:sl RCURLY
                 {: RESULT = new WhileStmtNode(e, new DeclListNode(vdl), new StmtListNode(sl));
